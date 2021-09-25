@@ -1,0 +1,5 @@
+restaurante:
+  - NOME: "Novo Restaurante"
+    PROPRIETARIO: "ID do keyclock"
+  - NOME: "Novo Restaurante 2"
+    PROPRIETARIO: "ID do keyclock 2"
