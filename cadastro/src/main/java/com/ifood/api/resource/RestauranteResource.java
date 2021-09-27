@@ -6,6 +6,7 @@ import com.ifood.business.entity.Restaurante;
 import com.ifood.business.entity.dto.PratoDTO;
 import com.ifood.business.entity.dto.mapper.PratoMapper;
 import com.ifood.infraestructure.privider.ConstraintViolationResponse;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.SimplyTimed;
 import org.eclipse.microprofile.metrics.annotation.Timed;
@@ -18,6 +19,7 @@ import org.eclipse.microprofile.openapi.annotations.security.OAuthFlows;
 import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+import org.eclipse.microprofile.reactive.messaging.Channel;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -44,6 +46,9 @@ public class RestauranteResource {
     PratoMapper pratoMapper;
     @Inject
     RestauranteMapper restauranteMapper;
+    @Inject
+    @Channel("restaurantes")
+    Emitter<Restaurante> emitter;
 
     @GET
     @Counted(name = "Quantidade buscas Restaurante")
@@ -61,6 +66,7 @@ public class RestauranteResource {
     public Response adicionar(@Valid AdicionarRestauranteDTO dto) {
         Restaurante restaurante = restauranteMapper.toEntity(dto);
         restaurante.persist();
+        emitter.send(restaurante);
         return Response.status(Response.Status.CREATED).build();
     }
 

@@ -7,7 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="pedido" />
-        <module name="markedplace" />
+        <module name="marketplace" />
         <module name="cadastro" />
       </profile>
       <profile name="Annotation profile for Unknown" enabled="true">
@@ -21,7 +21,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="cadastro" options="-parameters" />
-      <module name="markedplace" options="-parameters" />
+      <module name="marketplace" options="-parameters" />
       <module name="pedido" options="-parameters" />
     </option>
   </component>
